@@ -16,16 +16,31 @@ using namespace std;
     "Sunday"
 };
 
+int askNumberCars(){
+    int numberCars;
+    do {
+        cout << "Type number car from 0 to 25: ";
+        cin >> numberCars;
+
+        if (numberCars < 0 || numberCars > 25) {
+            cout << "Valor invalido. Intente nuevamente.\n";
+        }
+
+    } while (numberCars < 0 || numberCars > 25);
+
+    cout << "Car number: " << numberCars << endl;
+    return numberCars;
+}
 void registerId(string *ids, int numberCars){
     for (int i=0; i<numberCars; i++){
-        cout<<"Adding cars"<<endl;
+        cout<<"Type id to car #"<< i + 1 <<": "<<endl;
         cin >> *(ids + i);
     }
 }
 
 void addInitalDistance(int *km, int numberCars){
     for (int i=0; i<numberCars; i++){
-        cout<<"Adding kilometers"<<endl;
+        cout<<"Type initial kilometers by car #"<< i + 1 << ": " <<endl;
         cin >> *(km + i);
     }
 }
@@ -78,8 +93,9 @@ int addKilometers(int *km, int numberCars){
     return add;
 }
 
-int averageFuel(vector<vector<int>> &table, int numberCars){
-    int add = 0, average = 0;
+float averageFuel(vector<vector<int>> &table, int numberCars){
+    int add = 0;
+    float average = 0;
 
     for (int i=0; i<numberCars; i++){
         for (int j=0; j<days; j++){
@@ -114,10 +130,10 @@ int averageFuel(vector<vector<int>> &table, int numberCars){
 int main() 
 {
     int option = 0;
-    // Get number cars
     int numberCars = 0;
-    cout << "Number of cars: ";
-    cin >> numberCars;
+
+    // Get number cars
+    numberCars = askNumberCars();
 
     // Create dynamic arrays
     string* ids = new string[numberCars];
@@ -158,7 +174,7 @@ int main()
             break;
         }
         case 4: {
-            int average = 0;
+            float average = 0;
             average = averageFuel(tableFuel, numberCars);
             cout << "The average weekly fuel consumption is: " << average << endl;
             break;
